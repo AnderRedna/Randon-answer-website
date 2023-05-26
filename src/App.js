@@ -21,7 +21,7 @@ class ChatGPT extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    // const prompt = this.state.userInput;
+    const prompt = this.state.userInput;
     this.setState({isTyping: true})
 
     // Substitua com suas credenciais e endpoint
@@ -47,6 +47,9 @@ class ChatGPT extends Component {
       body: JSON.stringify(apiRequestBody)
     }).then(response => response.json())
       .then(data => {
+        const timeElapsed = new Date();
+        const today = new Date(timeElapsed);
+            console.log(prompt + " : " +today);
         this.setState(prevState => ({
           apiMessages: [...prevState.apiMessages, {role: 'assistant', content: data.choices[0].message.content}],
           response: (JSON.parse(data.choices[0].message.content)).pergunta,
